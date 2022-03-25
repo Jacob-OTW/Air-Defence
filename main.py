@@ -15,7 +15,11 @@ def HandleKeys():
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
-                missile_group.add(Missile(random.choice(enemy_group.sprites())))
+                if enemy_group:
+                    missile_group.add(Missile(random.choice(enemy_group.sprites())))
+                else:
+                    missile_group.add(Missile())
+
 
 
 pygame.init()

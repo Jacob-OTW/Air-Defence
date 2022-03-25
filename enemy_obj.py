@@ -13,9 +13,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = pos
         self.health = 20
+        self.speed = 1
 
     def update(self):
-        self.rect.x -= 1
+        self.rect.x -= self.speed
         if self.rect.right < 0:
             enemy_group.remove(self)
         collided = pygame.sprite.groupcollide(enemy_group, bullet_group, False, True)
