@@ -1,6 +1,9 @@
 import pygame
+import random
 from settings import SCREEN_HEIGHT
 from bullet_obj import Bullet, bullet_group
+from missile_obj import missile_group, Missile
+from enemy_obj import enemy_group
 
 
 class Player(pygame.sprite.Sprite):
@@ -11,6 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (211/2 + 10, SCREEN_HEIGHT / 2)
         self.y_force = 0
+        self.weapon = 'gun'
         self.missile = True
         self.missile_timer = 0
 
@@ -25,10 +29,18 @@ class Player(pygame.sprite.Sprite):
             self.y_force = 0
         self.rect.y += self.y_force
         if keyboard[pygame.K_SPACE]:
-            bullet_group.add(Bullet((self.rect.right / 1.1, self.rect.centery / 0.975), self.y_force / 2))
+            if self.weapon == 'gun':
+                bullet_group.add(Bullet((self.rect.right / 1.1, self.rect.centery / 0.975), self.y_force / 2))
+            else:
+                if player.missile:
+                    player.missile = False
+                    if enemy_group:
+                        missile_group.add(Missile(player, random.choice(enemy_group.sprites())))
+                    else:
+                        missile_group.add(Missile(player))
         if not self.missile:
             self.missile_timer += 1
-            if self.missile_timer >= 60:
+            if self.missile_timer >= 180:
                 self.missile = True
                 self.missile_timer = 0
 

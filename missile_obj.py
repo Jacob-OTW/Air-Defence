@@ -1,6 +1,5 @@
 import pygame
 import math
-from player_obj import player
 
 missile_group = pygame.sprite.Group()
 
@@ -24,7 +23,7 @@ def dis_to(mp, tp):
 
 
 class Missile(pygame.sprite.Sprite):
-    def __init__(self, target=None):
+    def __init__(self, player, target=None):
         super().__init__()
         a = pygame.image.load('missile0.png').convert_alpha()
         b = pygame.image.load('missile1.png').convert_alpha()

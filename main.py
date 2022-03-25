@@ -7,6 +7,7 @@ from enemy_obj import Enemy, enemy_group
 from bullet_obj import bullet_group
 from player_obj import player_group, player
 from cloud_obj import cloud_group
+from UI import ui_group
 
 
 def HandleKeys():
@@ -15,13 +16,11 @@ def HandleKeys():
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_c:
-                if player.missile:
-                    player.missile = False
-                    if enemy_group:
-                        missile_group.add(Missile(random.choice(enemy_group.sprites())))
-                    else:
-                        missile_group.add(Missile())
+            if event.key == pygame.K_e:
+                if player.weapon == 'gun':
+                    player.weapon = 'missile'
+                else:
+                    player.weapon = 'gun'
 
 
 myfont = pygame.font.SysFont("monospace", 16)
@@ -35,6 +34,7 @@ while True:
     missile_group.update()
     enemy_group.update()
     cloud_group.update()
+    ui_group.update()
 
     # Spawner
     enemy_spawn_timer += 1
@@ -49,6 +49,7 @@ while True:
     missile_group.draw(screen)
     enemy_group.draw(screen)
     player_group.draw(screen)
+    ui_group.draw(screen)
 
     # Text
     text = myfont.render(f"", True, (255, 0, 0))
