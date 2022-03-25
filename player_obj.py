@@ -10,15 +10,20 @@ class Player(pygame.sprite.Sprite):
         self.image.fill('White')
         self.rect = self.image.get_rect()
         self.rect.center = (20, SCREEN_HEIGHT / 2)
+        self.y_force = 0
 
     def update(self):
         keyboard = pygame.key.get_pressed()
-        if keyboard[pygame.K_w]:
-            self.rect.center = (self.rect.center[0], self.rect.center[1] - 5)
-        if keyboard[pygame.K_s]:
-            self.rect.center = (self.rect.center[0], self.rect.center[1] + 5)
+        if keyboard[pygame.K_w] or keyboard[pygame.K_s]:
+            if keyboard[pygame.K_w]:
+                self.y_force = -5
+            else:
+                self.y_force = 5
+        else:
+            self.y_force = 0
+        self.rect.y += self.y_force
         if keyboard[pygame.K_SPACE]:
-            bullet_group.add(Bullet((self.rect.right, self.rect.centery)))
+            bullet_group.add(Bullet((self.rect.right, self.rect.centery), self.y_force / 2))
 
 
 player = Player()

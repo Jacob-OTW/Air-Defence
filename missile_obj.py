@@ -32,15 +32,16 @@ class Missile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=self.true_position)
         self.target = target
         self.angle = 90
-        self.speed = 2
+        self.speed = 10
 
     def update(self):
         convert = math.pi * 2 / 360
         if self.target and self.target.health <= 0:
             self.target = None
         if self.target:
-            predict = (self.target.rect.centerx - ((dis_to(self.rect.center, self.target.rect.center) / self.speed) * self.target.speed / 2),
-                        self.target.rect.centery)
+            predict = (self.target.rect.centerx - (
+                        (dis_to(self.rect.center, self.target.rect.center) / self.speed) * self.target.speed / 2),
+                       self.target.rect.centery)
             self.angle = dir_to(self.rect.center, predict)
         x = math.sin(self.angle * convert)
         y = math.cos(self.angle * convert)

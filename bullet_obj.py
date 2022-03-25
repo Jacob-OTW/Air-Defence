@@ -6,7 +6,7 @@ bullet_group = pygame.sprite.Group()
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, pos):
+    def __init__(self, pos, yf):
         super().__init__()
         self.true_position = (pos[0], pos[1])
         self.image = pygame.Surface((5, 5))
@@ -14,7 +14,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = self.true_position
         self.angle = random.randint(0, 360)
-        self.yv = random.randint(-10, 10) / 35
+        self.yv = random.randint(-10, 10) / 35 + yf
 
     def update(self):
         self.true_position = (self.true_position[0] + 4, self.true_position[1] + self.yv)
