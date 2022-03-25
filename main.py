@@ -5,6 +5,7 @@ from missile_obj import Missile, missile_group
 from enemy_obj import Enemy, enemy_group
 from bullet_obj import bullet_group
 from player_obj import player_group
+from cloud_obj import cloud_group
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
@@ -19,7 +20,6 @@ def HandleKeys():
                     missile_group.add(Missile(random.choice(enemy_group.sprites())))
                 else:
                     missile_group.add(Missile())
-
 
 
 pygame.init()
@@ -37,6 +37,7 @@ while True:
     bullet_group.update()
     missile_group.update()
     enemy_group.update()
+    cloud_group.update()
 
     # Spawner
     enemy_spawn_timer += 1
@@ -45,11 +46,12 @@ while True:
         enemy_spawn_timer = 0
 
     # Visual
-    screen.fill('black')
+    screen.fill((97, 201, 207))
     bullet_group.draw(screen)
     missile_group.draw(screen)
     enemy_group.draw(screen)
     player_group.draw(screen)
+    cloud_group.draw(screen)
 
     # Text
     text = myfont.render(f"", True, (255, 0, 0))
