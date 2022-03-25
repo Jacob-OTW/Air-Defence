@@ -1,5 +1,4 @@
 import math
-
 import pygame
 import sys
 import random
@@ -62,7 +61,8 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x -= 1
-
+        if self.rect.right < 0:
+            enemy_group.remove(self)
         collided = pygame.sprite.groupcollide(enemy_group, bullet_group, False, True)
         if collided != {}:
             self.health -= 1
@@ -79,43 +79,30 @@ class Missile(pygame.sprite.Sprite):
         self.true_position = (player.rect.right, player.rect.center[1])
         self.rect.center = self.true_position
 
-    @classmethod
-    def dir_to(cls, mp, tp):
+    def dir_to(self, mp, tp):
         convert = 57.29577951
         x = tp[0] - mp[0]
         y = tp[1] - mp[1]
         if y == 0:
             return 90 if x > 0 else 270
         if y > 0:
-            return math.atan(x / y)
+            return (math.atan(x / y)) * convert
         else:
-            return math.atan(x / y) + 180 / convert
-
-    def dis_to(self, mp, tp):
-        x = tp[0] - mp[0]
-        y = tp[1] - mp[1]
-        return math.sqrt(x ** 2 + y ** 2)
-
-    def closest_enemy(self):
-        a = {}
-        for enemy in enemy_group.sprites():
-            a[self.rect.center, enemy.rect.center] = enemy
-        return a[min(a.keys())]
+            return math.atan(x / y) * convert + 180
 
     def update(self):
-        enemy = self.closest_enemy()
-        direction = Missile.dir_to(self.rect.center, enemy.rect.center)
-        add_x = enemy.rect.center[0] + math.cos(direction)
-        add_y = enemy.rect.center[1] + math.sin(direction)
-        self.true_position = (self.true_position[0] + add_x, self.true_position[1] + add_y)
+        convert = math.pi * 2 / 360
+        try:
+            x = math.sin(self.dir_to(self.rect.center, enemy_group.sprites()[0].rect.center) * convert)
+            y = math.cos(self.dir_to(self.rect.center, enemy_group.sprites()[0].rect.center) * convert)
+            self.true_position = (self.true_position[0] + x * 2, self.true_position[1] + y * 2)
+        except:
+            self.true_position = (self.true_position[0] + 1, self.true_position[1])
         self.rect.center = self.true_position
 
 
 SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 480
-GRIDSIZE = 20
-GRID_WIDTH = int(SCREEN_HEIGHT / GRIDSIZE)
-GRID_HEIGHT = int(SCREEN_WIDTH / GRIDSIZE)
 
 pygame.init()
 
