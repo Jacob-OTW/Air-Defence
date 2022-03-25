@@ -1,12 +1,12 @@
 import pygame
 import sys
 import random
+from settings import SCREEN_WIDTH, SCREEN_HEIGHT, screen, clock
 from missile_obj import Missile, missile_group
 from enemy_obj import Enemy, enemy_group
 from bullet_obj import bullet_group
-from player_obj import player_group
+from player_obj import player_group, player
 from cloud_obj import cloud_group
-from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 def HandleKeys():
@@ -16,16 +16,13 @@ def HandleKeys():
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
-                if enemy_group:
-                    missile_group.add(Missile(random.choice(enemy_group.sprites())))
-                else:
-                    missile_group.add(Missile())
+                if player.missile:
+                    player.missile = False
+                    if enemy_group:
+                        missile_group.add(Missile(random.choice(enemy_group.sprites())))
+                    else:
+                        missile_group.add(Missile())
 
-
-pygame.init()
-
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 myfont = pygame.font.SysFont("monospace", 16)
 
@@ -47,11 +44,11 @@ while True:
 
     # Visual
     screen.fill((97, 201, 207))
+    cloud_group.draw(screen)
     bullet_group.draw(screen)
     missile_group.draw(screen)
     enemy_group.draw(screen)
     player_group.draw(screen)
-    cloud_group.draw(screen)
 
     # Text
     text = myfont.render(f"", True, (255, 0, 0))

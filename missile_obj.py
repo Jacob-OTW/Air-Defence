@@ -26,9 +26,13 @@ def dis_to(mp, tp):
 class Missile(pygame.sprite.Sprite):
     def __init__(self, target=None):
         super().__init__()
-        self.image = pygame.Surface((5, 2))
-        self.image.fill('Red')
-        self.true_position = (player.rect.right, player.rect.center[1])
+        a = pygame.image.load('missile0.png').convert_alpha()
+        b = pygame.image.load('missile1.png').convert_alpha()
+        self.animations = [pygame.transform.scale(a, (35, 18)), pygame.transform.scale(b, (35, 18))]
+        self.animation_index = 0
+        self.animation_speed = 0.5
+        self.image = self.animations[self.animation_index]
+        self.true_position = (player.rect.right / 1.2, player.rect.centery / 0.975)
         self.rect = self.image.get_rect(center=self.true_position)
         self.target = target
         self.angle = 90
@@ -36,6 +40,10 @@ class Missile(pygame.sprite.Sprite):
 
     def update(self):
         convert = math.pi * 2 / 360
+        self.animation_index += self.animation_speed
+        if self.animation_index > len(self.animations) - 1:
+            self.animation_index = 0
+        self.image = pygame.transform.rotate(self.animations[int(self.animation_index)], self.angle - 90)
         if self.target and self.target.health <= 0:
             self.target = None
         if self.target:

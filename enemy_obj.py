@@ -23,9 +23,9 @@ class Enemy(pygame.sprite.Sprite):
         if collided != {}:
             self.health -= 1
             if self.health <= 0:
-                enemy_group.remove(self)
+                self.kill()
         collided = pygame.sprite.groupcollide(enemy_group, missile_group, False, True)
         if collided != {}:
-            self.health -= 5
-            if self.health <= 0:
-                enemy_group.remove(self)
+            self.health = 0
+            self.kill()
+
