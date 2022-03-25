@@ -1,8 +1,10 @@
 import pygame
 import sys
 import random
+
+import settings
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT, screen, clock
-from missile_obj import Missile, missile_group
+from missile_obj import missile_group
 from enemy_obj import Enemy, enemy_group
 from bullet_obj import bullet_group
 from player_obj import player_group, player
@@ -11,6 +13,9 @@ from UI import ui_group
 
 
 def HandleKeys():
+    if settings.LIVES <= 0:
+        pygame.quit()
+        sys.exit()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -26,6 +31,7 @@ def HandleKeys():
 myfont = pygame.font.SysFont("monospace", 16)
 
 enemy_spawn_timer = 0
+
 while True:
     # Update
     HandleKeys()
@@ -38,7 +44,7 @@ while True:
 
     # Spawner
     enemy_spawn_timer += 1
-    if enemy_spawn_timer > 240:
+    if enemy_spawn_timer > 145:
         enemy_group.add(Enemy((SCREEN_WIDTH + 20, random.randint(15, SCREEN_HEIGHT - 15))))
         enemy_spawn_timer = 0
 
@@ -46,13 +52,13 @@ while True:
     screen.fill((97, 201, 207))
     cloud_group.draw(screen)
     bullet_group.draw(screen)
+    ui_group.draw(screen)
     missile_group.draw(screen)
     enemy_group.draw(screen)
     player_group.draw(screen)
-    ui_group.draw(screen)
 
     # Text
-    text = myfont.render(f"", True, (255, 0, 0))
+    text = myfont.render(f"Score: {settings.SCORE} :: Lives: {settings.LIVES}", True, (255, 0, 0))
     screen.blit(text, (5, 10))
 
     # Refresh

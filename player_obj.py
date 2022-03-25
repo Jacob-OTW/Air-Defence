@@ -17,6 +17,8 @@ class Player(pygame.sprite.Sprite):
         self.weapon = 'gun'
         self.missile = True
         self.missile_timer = 0
+        self.gun = True
+        self.gun_timer = 0
 
     def update(self):
         keyboard = pygame.key.get_pressed()
@@ -30,7 +32,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.y_force
         if keyboard[pygame.K_SPACE]:
             if self.weapon == 'gun':
-                bullet_group.add(Bullet((self.rect.right / 1.1, self.rect.centery / 0.975), self.y_force / 2))
+                if self.gun:
+                    self.gun = False
+                    bullet_group.add(Bullet((self.rect.right / 1.1, self.rect.centery / 0.975), self.y_force / 2))
             else:
                 if player.missile:
                     player.missile = False
@@ -40,9 +44,14 @@ class Player(pygame.sprite.Sprite):
                         missile_group.add(Missile(player))
         if not self.missile:
             self.missile_timer += 1
-            if self.missile_timer >= 180:
+            if self.missile_timer >= 240:
                 self.missile = True
                 self.missile_timer = 0
+        if not self.gun:
+            self.gun_timer += 1
+            if self.gun_timer >= 5:
+                self.gun = True
+                self.gun_timer = 0
 
 
 player = Player()
