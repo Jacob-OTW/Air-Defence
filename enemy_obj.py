@@ -1,5 +1,6 @@
 import pygame
 from bullet_obj import bullet_group
+from missile_obj import missile_group
 
 enemy_group = pygame.sprite.Group()
 
@@ -20,5 +21,10 @@ class Enemy(pygame.sprite.Sprite):
         collided = pygame.sprite.groupcollide(enemy_group, bullet_group, False, True)
         if collided != {}:
             self.health -= 1
+            if self.health <= 0:
+                enemy_group.remove(self)
+        collided = pygame.sprite.groupcollide(enemy_group, missile_group, False, True)
+        if collided != {}:
+            self.health -= 5
             if self.health <= 0:
                 enemy_group.remove(self)

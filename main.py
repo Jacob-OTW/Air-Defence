@@ -3,8 +3,8 @@ import sys
 import random
 from missile_obj import Missile, missile_group
 from enemy_obj import Enemy, enemy_group
-from bullet_obj import Bullet, bullet_group
-from player_obj import player, player_group
+from bullet_obj import bullet_group
+from player_obj import player_group
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
@@ -15,7 +15,7 @@ def HandleKeys():
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
-                missile_group.add(Missile())
+                missile_group.add(Missile(random.choice(enemy_group.sprites())))
 
 
 pygame.init()
