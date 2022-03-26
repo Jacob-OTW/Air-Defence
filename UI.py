@@ -19,7 +19,7 @@ class UI(pygame.sprite.Sprite):
         loading_rect = pygame.transform.scale(self.missile_load, (150, player.missile_timer / 1.6))
         loading_rect.set_alpha(153)
         self.image.blit(self.img_surface, (0, 0))
-        self.image.blit(loading_rect, (150, 0))
+        self.image.blit(loading_rect, (150, 150-player.missile_timer / 1.6))
 
 
 ui_group = pygame.sprite.Group()

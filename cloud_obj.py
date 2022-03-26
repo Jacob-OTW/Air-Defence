@@ -15,7 +15,7 @@ class Cloud(pygame.sprite.Sprite):
             self.rect.bottom = SCREEN_HEIGHT
 
     def update(self):
-        self.rect.x -= 3
+        self.rect.x -= 2
         if self.rect.right < 0:
             self.rect.left = SCREEN_WIDTH
 
