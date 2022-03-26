@@ -10,7 +10,7 @@ def add_smoke(pos, m_vec=None):
 class Smoke(pygame.sprite.Sprite):
     def __init__(self, pos, m_vec=None):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load('Assets/Smoke.png'), (20, 20))
+        self.image = pygame.transform.scale(pygame.image.load('Assets/Smoke.png').convert_alpha(), (20, 20))
         self.pos = pos
         self.rect = self.image.get_rect(center=self.pos)
         self.opacity = 255

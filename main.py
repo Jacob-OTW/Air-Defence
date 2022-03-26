@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import settings
+import time
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT, screen, clock
 from missile_obj import missile_group
 from enemy_obj import Enemy, enemy_group
@@ -36,7 +37,10 @@ score_font = pygame.font.SysFont("arial", 32, pygame.font.Font.bold)
 
 def main():
     enemy_spawn_timer = 0
+    last_time = time.time()
     while True:
+        frame_time = time.time() - last_time
+        last_time = time.time()
         # Update
         HandleKeys()
         player_group.update()
@@ -72,6 +76,10 @@ def main():
         text = score_font.render(f"{settings.SCORE}", True, (color, color, color))
         text_rect = text.get_rect(center=(150, 90))
         screen.blit(text, text_rect)
+
+        # Text
+        text2 = score_font.render(f"{round(frame_time * 1000)}ms", True, (255, 255, 255))
+        screen.blit(text2, (100, 150))
 
         # Refresh
         pygame.display.flip()
