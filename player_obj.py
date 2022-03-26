@@ -4,6 +4,7 @@ from settings import SCREEN_HEIGHT
 from bullet_obj import Bullet, bullet_group
 from missile_obj import missile_group, Missile
 from enemy_obj import enemy_group
+from smoke import add_smoke
 
 
 class Player(pygame.sprite.Sprite):
@@ -12,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('Assets/plane.png.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (211, 67))
         self.rect = self.image.get_rect()
-        self.rect.center = (211/2 + 10, SCREEN_HEIGHT / 2)
+        self.rect.center = (211 / 2 + 10, SCREEN_HEIGHT / 2)
         self.y_force = 0
         self.weapon = 'gun'
         self.missile = True
@@ -34,6 +35,7 @@ class Player(pygame.sprite.Sprite):
             if self.weapon == 'gun':
                 if self.gun:
                     self.gun = False
+                    add_smoke((self.rect.right / 1.1, self.rect.centery / 0.975), m_vec=(-4, 0))
                     bullet_group.add(Bullet((self.rect.right / 1.1, self.rect.centery / 0.975), self.y_force / 2))
             else:
                 if player.missile:
