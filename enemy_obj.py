@@ -2,6 +2,7 @@ import pygame
 from bullet_obj import bullet_group
 from missile_obj import missile_group
 from settings import change_score, change_lives
+from pilot_obj import pilot_group, Pilot
 
 enemy_group = pygame.sprite.Group()
 
@@ -28,6 +29,7 @@ class Enemy(pygame.sprite.Sprite):
                 bullet.kill()
                 if self.health <= 0:
                     change_score(1)
+                    pilot_group.add(Pilot(self.rect.center))
                     self.kill()
         for missile in missile_group:
             temp = self.mask.overlap(missile.mask, (missile.rect.x - self.rect.x, missile.rect.y - self.rect.y))
@@ -35,4 +37,5 @@ class Enemy(pygame.sprite.Sprite):
                 missile.kill()
                 self.health = 0
                 change_score(1)
+                pilot_group.add(Pilot(self.rect.center))
                 self.kill()

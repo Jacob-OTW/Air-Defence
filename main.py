@@ -6,6 +6,7 @@ import settings
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT, screen, clock
 from missile_obj import missile_group
 from enemy_obj import Enemy, enemy_group
+from pilot_obj import pilot_group
 from bullet_obj import bullet_group
 from player_obj import player_group, player
 from cloud_obj import cloud_group
@@ -39,6 +40,7 @@ while True:
     bullet_group.update()
     missile_group.update()
     enemy_group.update()
+    pilot_group.update()
     cloud_group.update()
     ui_group.update()
 
@@ -53,6 +55,7 @@ while True:
     cloud_group.draw(screen)
     bullet_group.draw(screen)
     ui_group.draw(screen)
+    pilot_group.draw(screen)
     missile_group.draw(screen)
     enemy_group.draw(screen)
     player_group.draw(screen)
