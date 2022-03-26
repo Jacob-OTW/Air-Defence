@@ -31,6 +31,7 @@ class Missile(pygame.sprite.Sprite):
         self.animation_index = 0
         self.animation_speed = 0.5
         self.image = self.animations[self.animation_index]
+        self.mask = pygame.mask.from_surface(self.image)
         self.true_position = (player.rect.right / 1.2, player.rect.centery / 0.975)
         self.rect = self.image.get_rect(center=self.true_position)
         self.target = target
