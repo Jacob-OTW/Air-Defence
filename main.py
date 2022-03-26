@@ -16,6 +16,7 @@ from Status_UI import statusUI_group
 def HandleKeys():
     if settings.LIVES <= 0:
         pygame.quit()
+        print(settings.SCORE)
         sys.exit()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
