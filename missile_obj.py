@@ -25,8 +25,8 @@ def dis_to(mp, tp):
 class Missile(pygame.sprite.Sprite):
     def __init__(self, player, target=None):
         super().__init__()
-        a = pygame.image.load('missile0.png').convert_alpha()
-        b = pygame.image.load('missile1.png').convert_alpha()
+        a = pygame.image.load('Assets/missile0.png').convert_alpha()
+        b = pygame.image.load('Assets/missile1.png').convert_alpha()
         self.animations = [pygame.transform.scale(a, (35, 18)), pygame.transform.scale(b, (35, 18))]
         self.animation_index = 0
         self.animation_speed = 0.5

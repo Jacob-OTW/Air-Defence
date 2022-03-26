@@ -9,7 +9,7 @@ enemy_group = pygame.sprite.Group()
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
-        self.image = pygame.transform.scale(pygame.image.load('enemy.png').convert_alpha(), (190, 60))
+        self.image = pygame.transform.scale(pygame.image.load('Assets/enemy.png').convert_alpha(), (190, 60))
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.center = pos

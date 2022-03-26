@@ -9,7 +9,7 @@ from enemy_obj import enemy_group
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('plane.png.png').convert_alpha()
+        self.image = pygame.image.load('Assets/plane.png.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (211, 67))
         self.rect = self.image.get_rect()
         self.rect.center = (211/2 + 10, SCREEN_HEIGHT / 2)
