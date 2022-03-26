@@ -1,6 +1,6 @@
 import pygame
 import math
-
+from smoke import add_smoke
 missile_group = pygame.sprite.Group()
 
 
@@ -54,4 +54,5 @@ class Missile(pygame.sprite.Sprite):
         x = math.sin(self.angle * convert)
         y = math.cos(self.angle * convert)
         self.true_position = (self.true_position[0] + x * self.speed, self.true_position[1] + y * self.speed)
-        self.rect.center = self.true_position
+        self.rect = self.image.get_rect(center=self.true_position)
+        add_smoke(self.rect.center)

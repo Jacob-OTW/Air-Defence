@@ -9,6 +9,7 @@ from pilot_obj import pilot_group
 from bullet_obj import bullet_group
 from player_obj import player_group, player
 from cloud_obj import cloud_group
+from smoke import smoke_group
 from UI import ui_group
 from Status_UI import statusUI_group
 
@@ -44,6 +45,7 @@ def main():
         enemy_group.update()
         pilot_group.update()
         cloud_group.update()
+        smoke_group.update()
         ui_group.update()
         statusUI_group.update()
 
@@ -58,6 +60,7 @@ def main():
         cloud_group.draw(screen)
         ui_group.draw(screen)
         statusUI_group.draw(screen)
+        smoke_group.draw(screen)
         bullet_group.draw(screen)
         pilot_group.draw(screen)
         missile_group.draw(screen)
